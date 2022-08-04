@@ -1,5 +1,4 @@
-import 'package:cancer_free/screen/home.dart';
-import 'package:cancer_free/screen/welcome.dart';
+import 'package:cancer_free/screen/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home:  const WelcomePage(),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+        home: const SplashScreen());
   }
 }

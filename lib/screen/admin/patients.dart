@@ -1,6 +1,7 @@
 import 'package:cancer_free/models/user.dart';
 import 'package:cancer_free/screen/admin/add_doctor.dart';
 import 'package:cancer_free/utils/navigator.dart';
+import 'package:cancer_free/widgets/buttonsWidgets/button_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -41,9 +42,22 @@ class Patients extends HookWidget {
                             itemBuilder: (_, ind) {
                               UserModel data = UserModel.fromJson(
                                   snapshot.data!.docs[ind].data());
+                                  print(data.toAddJson());
                               return ListTile(
                                   title: Text(data.name),
-                                  subtitle: Text(data.phoneNo));
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(data.phoneNo),
+                                      Text(data.email),
+                                      Text(data.email),
+                                      ButtonWidget(
+                                          title: data.admission == false
+                                              ? 'Admit'
+                                              : 'Discharge',
+                                          onPressed: () {})
+                                    ],
+                                  ));
                             });
                   }
               }

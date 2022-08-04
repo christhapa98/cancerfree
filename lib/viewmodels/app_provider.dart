@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'package:cancer_free/models/appointment.dart';
 import 'package:cancer_free/models/doctor.dart';
+import 'package:cancer_free/models/testinomial.dart';
 import 'package:cancer_free/models/user.dart';
+import 'package:cancer_free/utils/session.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,6 +12,7 @@ enum UserType { admin, user, doctor }
 
 class AppProvider {
   static UserModel? userData;
+  static String uid = "";
   UserType? usertype;
 
   void getUserDetails(id) async {}
@@ -23,6 +27,8 @@ class AppProvider {
         UserModel data = UserModel.fromJson(docSnapshot.data()!);
         userData = data;
         usertype = UserType.user;
+        uid = docSnapshot.id;
+        await SessionPreferencesServices().setUserSession(userSession: data);
       }
       onSuccess();
     }).catchError((e) => onException(e.toString()));
@@ -40,9 +46,10 @@ class AppProvider {
           .collection('users')
           .doc(value.user!.uid)
           .set(data.toAddJson())
-          .then((value) {
+          .then((v) {
         userData = data;
         usertype = UserType.user;
+        uid = value.user!.uid;
         onSuccess();
       });
     }).catchError((e) {
@@ -61,7 +68,15 @@ class AppProvider {
     });
   }
 
-  makeAppiontment() {}
+  makeAppiontment({required AppointmentModel data, onSuccess, onException}) {
+    FirebaseFirestore.instance
+        .collection('appointment')
+        .add(data.toJson())
+        .then((value) => {onSuccess()})
+        .catchError((e) {
+      onException(e);
+    });
+  }
 
   getDoctors() async {
     return await FirebaseFirestore.instance.collection('doctors').get();
@@ -70,8 +85,9 @@ class AppProvider {
 
 class DoctorProvider {
   DoctorModel? doctor;
+  static String did = "";
 
-  addTestnomial({required DoctorModel data, onSuccess, onException}) {
+  addTestnomial({required TestonomialModel data, onSuccess, onException}) {
     FirebaseFirestore.instance
         .collection('testnomial')
         .add(data.toJson())
@@ -83,17 +99,5 @@ class DoctorProvider {
 
   getTestnomial() async {
     return await FirebaseFirestore.instance.collection('testnomial').get();
-  }
-
-  void doctorLogin({id, onSuccess, onException}) async {
-    var docSnapshot =
-        await FirebaseFirestore.instance.collection('doctors').doc(id).get();
-    if (docSnapshot.exists) {
-      DoctorModel data = DoctorModel.fromJson(docSnapshot.data()!);
-      doctor = data;
-      onSuccess();
-    } else {
-      onException(docSnapshot);
-    }
   }
 }

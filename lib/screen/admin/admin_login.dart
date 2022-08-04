@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:cancer_free/models/doctor.dart';
 import 'package:cancer_free/screen/admin/admin_home.dart';
-import 'package:cancer_free/screen/signup.dart';
+import 'package:cancer_free/screen/doctor/doctor_home.dart';
 import 'package:cancer_free/utils/navigator.dart';
+import 'package:cancer_free/utils/toast.dart';
 import 'package:cancer_free/viewmodels/app_provider.dart';
 import 'package:cancer_free/widgets/buttonsWidgets/button_widget.dart';
 import 'package:cancer_free/widgets/formComponents/text_field_widget.dart';
@@ -17,18 +18,15 @@ class AdminLogin extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-          appBar: AppBar(
-              bottom: const TabBar(tabs: [
-            Tab(child: Text('Admin', style: TextStyle(color: Colors.black))),
-            Tab(child: Text('Doctor', style: TextStyle(color: Colors.black))),
-          ])),
-          body: const TabBarView(children: [
-            AdminLoginForm(),
-            DoctorLoginForm(),
-          ])),
-    );
+        length: 2,
+        child: Scaffold(
+            appBar: AppBar(
+                bottom: const TabBar(tabs: [
+              Tab(child: Text('Admin', style: TextStyle(color: Colors.black))),
+              Tab(child: Text('Doctor', style: TextStyle(color: Colors.black)))
+            ])),
+            body: const TabBarView(
+                children: [AdminLoginForm(), DoctorLoginForm()])));
   }
 }
 
@@ -80,13 +78,15 @@ class DoctorLoginForm extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final name = useTextEditingController();
-    final password = useTextEditingController();
+    final did = useState<String>("");
+    final password = useTextEditingController(text: "989524560");
     final showHidePassword = useState<bool>(false);
     final selectedDoctor = useState<DoctorModel?>(null);
 
     void doctorLogin() async {
-      if(selectedDoctor.value!.phoneNo == password.text){
-        
+      if (selectedDoctor.value!.phoneNo == password.text) {
+        DoctorProvider.did = did.value;
+        navigateAndRemoveUntil(context: context, screen: const DoctorHome());
       }
     }
 
@@ -148,6 +148,10 @@ class DoctorLoginForm extends HookWidget {
                                                         onTap: () {
                                                           selectedDoctor.value =
                                                               data;
+                                                          did.value = snapshot
+                                                              .data!
+                                                              .docs[ind]
+                                                              .id;
                                                           name.text = data.name;
                                                           navigateBack(
                                                               context: context);
@@ -176,9 +180,12 @@ class DoctorLoginForm extends HookWidget {
           onPressed: () {
             if (password.text == selectedDoctor.value!.phoneNo) {
               doctorLogin();
+            } else {
+              toast('Password Doesnot Match', context, taskSuccess: false);
+              log(selectedDoctor.value!.phoneNo.toString());
             }
           }),
-      const SizedBox(height: 25),
+      const SizedBox(height: 25)
     ]);
   }
 }

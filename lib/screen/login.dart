@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:cancer_free/screen/home.dart';
 import 'package:cancer_free/screen/signup.dart';
 import 'package:cancer_free/utils/navigator.dart';
+import 'package:cancer_free/utils/toast.dart';
 import 'package:cancer_free/viewmodels/app_provider.dart';
 import 'package:cancer_free/widgets/buttonsWidgets/button_widget.dart';
 import 'package:cancer_free/widgets/formComponents/text_field_widget.dart';
@@ -14,8 +13,8 @@ class Login extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final email = useTextEditingController();
-    final password = useTextEditingController();
+    final email = useTextEditingController(text: "sam@gmail.com");
+    final password = useTextEditingController(text: "aaaaaaaaaa");
     final showHidePassword = useState<bool>(false);
     final loading = useState<bool>(false);
 
@@ -53,7 +52,7 @@ class Login extends HookWidget {
                         password: password.text,
                         onException: (e) {
                           loading.value = false;
-                          log(e);
+                          toast(e, context,taskSuccess: false);
                         },
                         onSuccess: () {
                           loading.value = false;
