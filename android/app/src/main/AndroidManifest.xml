@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.solomon.cancerfree">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="cancer_free"
+        android:label="Cancer Care"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

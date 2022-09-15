@@ -5,26 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class DoctorTestinomials extends HookWidget {
-  const DoctorTestinomials({Key? key}) : super(key: key);
+class UserTestinomials extends HookWidget {
+  const UserTestinomials({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final refresh = useState<bool>(false);
     return Scaffold(
-        appBar: AppBar(actions: [
-          IconButton(
-              onPressed: () {
-                navigateTo(
-                    context: context,
-                    screen: const AddTestinomials(),
-                    state: () {
-                      refresh.value = true;
-                      refresh.value = false;
-                    });
-              },
-              icon: const Icon(Icons.add))
-        ],title: const Text('Testinomials')),
+        appBar: AppBar(title: const Text('All Testinomials')),
         body: refresh.value
             ? const Center(child: CircularProgressIndicator())
             : FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(

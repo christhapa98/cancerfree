@@ -22,7 +22,7 @@ class AdminHome extends HookWidget {
                   },
                   icon: const Icon(Icons.logout))
             ],
-            title: const Text('CancerFree Admin')),
+            title: const Text('CancerCare Admin')),
         body: ListView(children: [
           ListTile(
               leading: const Icon(Icons.health_and_safety),
@@ -37,8 +37,8 @@ class AdminHome extends HookWidget {
                 navigateTo(context: context, screen: const Patients());
               }),
           ListTile(
-            leading: Icon(Icons.list),
-            title: Text('Appointments'),
+            leading: const Icon(Icons.list),
+            title: const Text('Appointments'),
             onTap: () {
               navigateTo(context: context, screen: const AdminAppointment());
             },

@@ -1,34 +1,33 @@
-
 {
   "project_info": {
-    "project_number": "967531112973",
-    "project_id": "cancer-free",
-    "storage_bucket": "cancer-free.appspot.com"
+    "project_number": "628424441418",
+    "project_id": "cancerfree-1d34d",
+    "storage_bucket": "cancerfree-1d34d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:967531112973:android:4c437c327cd680da254344",
+        "mobilesdk_app_id": "1:628424441418:android:934864da80f472bf8970b3",
         "android_client_info": {
           "package_name": "com.solomon.cancerfree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "967531112973-lssjm226k23no0q7qn1msh1pchhrtsna.apps.googleusercontent.com",
+          "client_id": "628424441418-qre99g2a5nspa926p4s3p8fjmm509obv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDBSfWgUdVHZHJEKVn-f8oJMukbyQNAMK0"
+          "current_key": "AIzaSyAJqfjtO78lJHavbYVxudGeYwk92LE4nhQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "967531112973-lssjm226k23no0q7qn1msh1pchhrtsna.apps.googleusercontent.com",
+              "client_id": "628424441418-qre99g2a5nspa926p4s3p8fjmm509obv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

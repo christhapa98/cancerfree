@@ -13,9 +13,9 @@ class Login extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final email = useTextEditingController(text: "sam@gmail.com");
-    final password = useTextEditingController(text: "aaaaaaaaaa");
-    final showHidePassword = useState<bool>(false);
+    final email = useTextEditingController();
+    final password = useTextEditingController();
+    final showHidePassword = useState<bool>(true);
     final loading = useState<bool>(false);
 
     return Scaffold(
@@ -52,7 +52,7 @@ class Login extends HookWidget {
                         password: password.text,
                         onException: (e) {
                           loading.value = false;
-                          toast(e, context,taskSuccess: false);
+                          toast(e, context, taskSuccess: false);
                         },
                         onSuccess: () {
                           loading.value = false;

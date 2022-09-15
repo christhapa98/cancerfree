@@ -12,7 +12,6 @@ class DoctorAppoinement extends HookWidget {
     final refresh = useState<bool>(false);
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
             title: const Text('Appointments')),
         body: refresh.value
             ? const Center(child: CircularProgressIndicator())

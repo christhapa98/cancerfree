@@ -21,7 +21,7 @@ class WelcomePage extends HookWidget {
       if (data != null) {
         AppProvider().usertype = UserType.user;
         AppProvider.userData = data;
-        navigateAndRemoveUntil(context: context, screen: Home());
+        navigateAndRemoveUntil(context: context, screen: const Home());
       }
     }
 
@@ -34,7 +34,7 @@ class WelcomePage extends HookWidget {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       const Spacer(),
-      const Text('Welcome to Cancer Free',
+      const Text('Welcome to Cancer Care',
           style: TextStyle(
               fontSize: 37.0,
               fontFamily: 'Outfit',

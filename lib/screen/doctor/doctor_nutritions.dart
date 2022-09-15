@@ -1,12 +1,13 @@
-import 'package:cancer_free/models/testinomial.dart';
-import 'package:cancer_free/screen/doctor/add_testinomials.dart';
+import 'package:cancer_free/models/nutritions.dart';
+import 'package:cancer_free/screen/doctor/add_nutritions.dart';
 import 'package:cancer_free/utils/navigator.dart';
+import 'package:cancer_free/viewmodels/app_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class DoctorTestinomials extends HookWidget {
-  const DoctorTestinomials({Key? key}) : super(key: key);
+class DoctorNutritions extends HookWidget {
+  const DoctorNutritions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +18,21 @@ class DoctorTestinomials extends HookWidget {
               onPressed: () {
                 navigateTo(
                     context: context,
-                    screen: const AddTestinomials(),
+                    screen: const AddNutritions(),
                     state: () {
                       refresh.value = true;
                       refresh.value = false;
                     });
               },
               icon: const Icon(Icons.add))
-        ],title: const Text('Testinomials')),
+        ], title: const Text('Nutritions')),
         body: refresh.value
             ? const Center(child: CircularProgressIndicator())
             : FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                future:
-                    FirebaseFirestore.instance.collection('testnomial').get(),
+                future: FirebaseFirestore.instance
+                    .collection('nutritions')
+                    .where('did', isEqualTo: DoctorProvider.did)
+                    .get(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -43,16 +46,18 @@ class DoctorTestinomials extends HookWidget {
                       } else {
                         return snapshot.data!.docs.isEmpty
                             ? const Center(
-                                child: Text('No Appointments Made For You'))
+                                child: Text('No Nutritions added by You'))
                             : ListView.builder(
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (_, ind) {
-                                  TestonomialModel data =
-                                      TestonomialModel.fromJson(
+                                  NutritionsModel data =
+                                      NutritionsModel.fromJson(
                                           snapshot.data!.docs[ind].data());
                                   return ListTile(
-                                    leading: const Icon(Icons.message),
-                                    title: Text(data.messages),
+                                    leading:
+                                        const Icon(Icons.fastfood_outlined),
+                                    title: Text(data.type),
+                                    subtitle: Text(data.nutritions),
                                   );
                                 });
                       }

@@ -37,7 +37,7 @@ class AdminLoginForm extends HookWidget {
   Widget build(BuildContext context) {
     final email = useTextEditingController(text: "admin@cancerfree");
     final password = useTextEditingController(text: "password@cancerfree");
-    final showHidePassword = useState<bool>(false);
+    final showHidePassword = useState<bool>(true);
     return ListView(padding: const EdgeInsets.all(15.0), children: [
       const Text('Admin Login',
           style: TextStyle(
@@ -79,8 +79,8 @@ class DoctorLoginForm extends HookWidget {
   Widget build(BuildContext context) {
     final name = useTextEditingController();
     final did = useState<String>("");
-    final password = useTextEditingController(text: "989524560");
-    final showHidePassword = useState<bool>(false);
+    final password = useTextEditingController();
+    final showHidePassword = useState<bool>(true);
     final selectedDoctor = useState<DoctorModel?>(null);
 
     void doctorLogin() async {

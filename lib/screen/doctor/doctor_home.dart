@@ -1,6 +1,7 @@
 import 'package:cancer_free/screen/admin/admin_doctor.dart';
 import 'package:cancer_free/screen/admin/patients.dart';
 import 'package:cancer_free/screen/doctor/doctor_appointment.dart';
+import 'package:cancer_free/screen/doctor/doctor_nutritions.dart';
 import 'package:cancer_free/screen/doctor/doctor_testinomials.dart';
 import 'package:cancer_free/screen/welcome.dart';
 import 'package:cancer_free/utils/navigator.dart';
@@ -23,7 +24,7 @@ class DoctorHome extends HookWidget {
                   },
                   icon: const Icon(Icons.logout))
             ],
-            title: const Text('CancerFree Doctor')),
+            title: const Text('CancerCare Doctor')),
         body: ListView(children: [
           ListTile(
               leading: const Icon(Icons.message),
@@ -37,6 +38,12 @@ class DoctorHome extends HookWidget {
               title: const Text('Appointments'),
               onTap: () {
                 navigateTo(context: context, screen: const DoctorAppoinement());
+              }),
+          ListTile(
+              leading: const Icon(Icons.list),
+              title: const Text('Nutritions'),
+              onTap: () {
+                navigateTo(context: context, screen: const DoctorNutritions());
               }),
         ]));
   }

@@ -1,7 +1,10 @@
 import 'package:cancer_free/models/doctor.dart';
 import 'package:cancer_free/screen/appointment.dart';
 import 'package:cancer_free/screen/bmi.dart';
+import 'package:cancer_free/screen/my_bills.dart';
 import 'package:cancer_free/screen/profile.dart';
+import 'package:cancer_free/screen/testinomial_user.dart';
+import 'package:cancer_free/screen/user_nutritions.dart';
 import 'package:cancer_free/screen/welcome.dart';
 import 'package:cancer_free/utils/navigator.dart';
 import 'package:cancer_free/utils/session.dart';
@@ -20,11 +23,19 @@ class Home extends HookWidget {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             elevation: 0,
-            currentIndex: 0,
+            currentIndex: 1,
             backgroundColor: Colors.white,
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.black26,
             items: [
+              BottomNavigationBarItem(
+                  icon: GestureDetector(
+                      onTap: () {
+                        navigateTo(
+                            screen: const UserTestinomials(), context: context);
+                      },
+                      child: const Icon(Icons.message)),
+                  label: 'Testinomials'),
               BottomNavigationBarItem(
                   icon: GestureDetector(
                       onTap: () {}, child: const Icon(Icons.home)),
@@ -35,7 +46,7 @@ class Home extends HookWidget {
                         navigateTo(
                             screen: const UserAppointment(), context: context);
                       },
-                      child: const Icon(Icons.message)),
+                      child: const Icon(Icons.book)),
                   label: 'Appointments'),
             ]),
         appBar: AppBar(actions: [
@@ -52,7 +63,7 @@ class Home extends HookWidget {
                     context: context, screen: const WelcomePage());
               },
               icon: const Icon(Icons.logout)),
-        ], automaticallyImplyLeading: false, title: const Text('Cancer Free')),
+        ], automaticallyImplyLeading: false, title: const Text('Cancer Care')),
         body: ListView(padding: const EdgeInsets.all(15.0), children: [
           const SizedBox(height: 20),
           const Banners(),
@@ -69,12 +80,35 @@ class Home extends HookWidget {
               },
               child: Lottie.asset("assets/bmi.json", height: 150, width: 200)),
           const SizedBox(height: 20),
+          ListTile(
+              onTap: () {
+                navigateTo(screen: const UserHistories(), context: context);
+              },
+              leading: const Icon(Icons.history),
+              title: const Text('Manage your histories',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              trailing: const Icon(Icons.chevron_right)),
+          ListTile(
+              onTap: () {
+                navigateTo(screen: const UserNutritions(), context: context);
+              },
+              leading: const Icon(Icons.fastfood_sharp),
+              title: const Text('Nutritions',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              trailing: const Icon(Icons.chevron_right)),
+          const SizedBox(height: 20),
           const Text('Our Doctors',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 20)),
-          const Doctors()
+          const Doctors(),
         ]));
   }
 }
